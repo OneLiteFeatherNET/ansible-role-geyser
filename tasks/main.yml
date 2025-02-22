@@ -1,5 +1,5 @@
 ---
-- name: "Add the user geyser with a bash shell, appending the group 'sudo' to the user's groups"
+- name: "Add the user {{ geyser.user }} with a bash shell, appending the group 'sudo' to the user's groups"
   ansible.builtin.user:
     name: "{{ geyser.user }}"
     shell: /bin/bash
@@ -15,7 +15,7 @@
     mode: '0700'
   tags: download_geyser
 
-- name: Template a file to installtion path ./config.yml
+- name: "Template a file to installtion path {{ geyser.installation_path }}/config.yml"
   ansible.builtin.template:
     src: /templates/config.yml.j2
     dest: "{{ geyser.installation_path }}/config.yml"
@@ -24,7 +24,7 @@
     mode: '0700'
   tags: config_geyser
 
-- name: Template a file to /etc/systemd/system/geyser.service
+- name: "Template a file to /etc/systemd/system/{{ geyser.name }}.service"
   ansible.builtin.template:
     src: /templates/geyser.service.j2
     dest: "/etc/systemd/system/{{ geyser.name }}.service"
@@ -35,7 +35,7 @@
     - Start geyser
   tags: systemd_geyser
 
-- name: Restart geyser
+- name: "Restart {{ geyser.name }}"
   ansible.builtin.systemd_service:
     state: restarted
     daemon_reload: true
