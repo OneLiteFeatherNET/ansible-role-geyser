@@ -27,7 +27,7 @@
 - name: Template a file to /etc/systemd/system/geyser.service
   ansible.builtin.template:
     src: /templates/geyser.service.j2
-    dest: /etc/systemd/system/{{ geyser.name }}.service
+    dest: "/etc/systemd/system/{{ geyser.name }}.service"
     owner: "{{ geyser.user }}"
     group: "{{ geyser.user }}"
     mode: '0700'
