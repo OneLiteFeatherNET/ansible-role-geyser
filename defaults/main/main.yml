@@ -1,0 +1,6 @@
+geyser:
+  java:
+    memory: 1G
+  user: geyser
+  installation_path: /home/geyser/geyser
+  name: geyser

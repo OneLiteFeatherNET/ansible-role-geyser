@@ -1,0 +1,32 @@
+galaxy_info:
+  role_name: geyser
+  author: TheMeinerLP
+  description: Installs geyser on Ubuntu and Debian systems
+  min_ansible_version: "2.11"
+  company: "OneLitefeather"
+  license: "MIT"
+  platforms:
+    - name: Ubuntu
+      versions:
+        - focal
+        - bionic
+        - xenial
+    - name: Debian
+      versions:
+        - bullseye
+        - buster
+        - stretch
+  galaxy_tags: 
+    - geyser
+    - minecraft
+    - bedrock
+    - java
+    - server
+    - proxy
+    - geysermc
+    - geysermcproxy
+    - geyserproxy
+    - geyserproxyserver
+
+dependencies: 
+   - role: Comcast.sdkman

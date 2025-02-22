@@ -1,0 +1,12 @@
+---
+- name: Start {{geyser.name}}
+  systemd:
+    name: {{geyser.name}}
+    state: started
+    enabled: yes
+    daemon_reload: yes
+- name: Restart {{geyser.name}}
+  systemd:
+    name: {{geyser.name}}
+    state: restarted
+    daemon_reload: yes

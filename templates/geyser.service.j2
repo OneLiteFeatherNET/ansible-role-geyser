@@ -1,0 +1,24 @@
+[Unit]
+Description = {{geyser.name}} Proxy
+After = syslog.target
+
+[Service]
+Environment = JAVA_OPTS='-Xms{{geyser.java.memory}} -Xmx{{geyser.java.memory}} -XX:+UseZGC -XX:+PerfDisableSharedMem -XX:+DisableExplicitGC'
+Environment = JAVA_HOME=''
+User = {{geyser.user}}
+Group = {{geyser.user}}
+ExecStartPre = /bin/chown {{geyser.user}}:{{geyser.user}} {{geyser.installation_path}}/logs/application.log
+ExecStart = java $JAVA_OPTS -jar {{geyser.installation_path}}/standalone.jar
+StandardOutput = file:{{geyser.installation_path}}/logs/application.log
+StandardError = file:{{geyser.installation_path}}/logs/application.log
+SuccessExitStatus = 143
+WorkingDirectory = {{geyser.installation_path}}
+KillSignal=SIGINT
+TimeoutStopSec=20
+Restart=always
+RestartSec=5
+StartLimitInterval=0
+StartLimitBurst=10
+
+[Install]
+WantedBy = multi-user.target
