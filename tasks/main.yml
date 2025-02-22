@@ -1,6 +1,6 @@
 - name: "Add the user geyser with a bash shell, appending the group 'sudo' to the user's groups"
   ansible.builtin.user:
-    name: {{geyser.user}}
+    name: "{{geyser.user}}"
     shell: /bin/bash
     groups: sudo
     append: yes
@@ -18,8 +18,8 @@
   ansible.builtin.template:
     src: /templates/config.yml.j2
     dest: "{{geyser.installation_path}}/config.yml"
-    owner: {{geyser.user}}
-    group: {{geyser.user}}
+    owner: "{{geyser.user}}"
+    group: "{{geyser.user}}"
     mode: '0700'
   tags: config_geyser
 
@@ -27,8 +27,8 @@
   ansible.builtin.template:
     src: /templates/geyser.service.j2
     dest: /etc/systemd/system/{{geyser.name}}.service
-    owner: {{geyser.user}}
-    group: {{geyser.user}}
+    owner: "{{geyser.user}}"
+    group: "{{geyser.user}}"
     mode: '0700'
   notify: 
     - Start geyser
@@ -38,5 +38,5 @@
   ansible.builtin.systemd_service:
     state: restarted
     daemon_reload: true
-    name: {{geyser.name}}
+    name: "{{geyser.name}}"
   tags: restart_geyser
