@@ -5,12 +5,15 @@
     groups: sudo
     append: yes
     state: present
+  tags: add_user
 
 - name: Download geyser.jar from download api
   ansible.builtin.get_url:
     url: https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/standalone
     dest: "{{geyser.installation_path}}/standalone.jar"
     mode: '0700'
+  tags: download_geyser
+
 - name: Template a file to {{geyser.installation_path}}/config.yml
   ansible.builtin.template:
     src: /templates/config.yml.j2
@@ -18,6 +21,8 @@
     owner: {{geyser.user}}
     group: {{geyser.user}}
     mode: '0700'
+  tags: config_geyser
+
 - name: Template a file to /etc/systemd/system/{{geyser.name}}.service
   ansible.builtin.template:
     src: /templates/geyser.service.j2
@@ -27,3 +32,11 @@
     mode: '0700'
   notify: 
     - Start geyser
+  tags: systemd_geyser
+
+- name: Restart {{geyser.name}}
+  ansible.builtin.systemd_service:
+    state: restarted
+    daemon_reload: true
+    name: {{geyser.name}}
+  tags: restart_geyser
