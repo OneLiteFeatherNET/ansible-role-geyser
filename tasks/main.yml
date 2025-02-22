@@ -1,3 +1,4 @@
+---
 - name: "Add the user geyser with a bash shell, appending the group 'sudo' to the user's groups"
   ansible.builtin.user:
     name: "{{ geyser.user }}"
