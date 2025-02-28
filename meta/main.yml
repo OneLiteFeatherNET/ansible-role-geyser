@@ -27,6 +27,3 @@ galaxy_info:
     - geysermcproxy
     - geyserproxy
     - geyserproxyserver
-
-dependencies: 
-   - role: Comcast.sdkman
